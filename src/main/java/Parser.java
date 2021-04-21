@@ -3,6 +3,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+import javax.swing.*;
 import java.io.IOException;
 import java.net.URL;
 import java.util.HashMap;
@@ -101,6 +102,7 @@ public class Parser {
         map.put("Чукотский автономный округ", "https://coronavirus-monitor.ru/coronavirus-v-chukotskom-avtonomnom-okruge/");
     }
 
+
     private Document getPage(String district) throws IOException {
         String url = this.map.get(district);
         Document page = Jsoup.parse(new URL(url), 5000);
@@ -124,12 +126,14 @@ public class Parser {
         String s = inf.text();
         message.append( nameCity.text() + "\n" + infectionValue.text() + "\n" + healthValue.text() +
                 "\n" + deathValue.text() + "\n");
-        for (int i = 0; i < s.length(); i++) {
-            message.append(s.charAt(i));
-            if(s.charAt(i) == '.') message.append("\n");
-        }
-
         System.out.println(message);
+    }
+
+    @Override
+    public String toString() {
+        return "Parser{" +
+                "map=" + map.keySet() +
+                '}';
     }
 
 }

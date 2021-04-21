@@ -1,5 +1,8 @@
 public class TestParser {
     public static void main(String[] args) {
-        new Parser().info("Севастополь");
+        Parser pars = new Parser();
+        pars.info("Севастополь");
+        String s = pars.toString();
+        System.out.println(s);
     }
 }
