@@ -129,11 +129,18 @@ public class Parser {
         System.out.println(message);
     }
 
+    public String[] splitter(String str) {
+        System.out.println(str);
+        String[] list = str.split(", ");
+        for (String s : list) {
+            System.out.println(s);
+        }
+        return null;
+    }
+
     @Override
     public String toString() {
-        return "Parser{" +
-                "map=" + map.keySet() +
-                '}';
+        return "" + map.keySet();
     }
 
 }

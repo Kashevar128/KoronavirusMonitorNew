@@ -4,5 +4,6 @@ public class TestParser {
         pars.info("Севастополь");
         String s = pars.toString();
         System.out.println(s);
+        pars.splitter(pars.toString());
     }
 }
