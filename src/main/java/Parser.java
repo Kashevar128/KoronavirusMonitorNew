@@ -1,16 +1,15 @@
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
 
-import javax.swing.*;
 import java.io.IOException;
 import java.net.URL;
 import java.util.HashMap;
+import java.util.Set;
 
 
 public class Parser {
-    HashMap <String, String> map;
+    HashMap<String, String> map;
 
     public Parser() {
         map = new HashMap<>();
@@ -31,7 +30,7 @@ public class Parser {
         map.put("Волгоградская область", "https://coronavirus-monitor.ru/coronavirus-v-volgogradskoj-oblasti/");
         map.put("Ханты-Мансийский АО", "https://coronavirus-monitor.ru/coronavirus-v-khanty-mansijskom-ao/");
         map.put("Пермский край", "https://coronavirus-monitor.ru/coronavirus-v-permskom-krae/");
-        map.put("Ульяновская область","https://coronavirus-monitor.ru/coronavirus-v-ulyanovskoj-oblasti/");
+        map.put("Ульяновская область", "https://coronavirus-monitor.ru/coronavirus-v-ulyanovskoj-oblasti/");
         map.put("Ставропольский край", "https://coronavirus-monitor.ru/coronavirus-v-stavropolskom-krae/");
         map.put("Хабаровский край", "https://coronavirus-monitor.ru/coronavirus-v-khabarovskom-krae/");
         map.put("Мурманская область", "https://coronavirus-monitor.ru/coronavirus-v-murmanskoj-oblasti/");
@@ -71,12 +70,12 @@ public class Parser {
         map.put("Томская область", "https://coronavirus-monitor.ru/coronavirus-v-tomskoj-oblasti/");
         map.put("Владимирская область", "https://coronavirus-monitor.ru/coronavirus-v-vladimirskoj-oblasti/");
         map.put("Калининградская область", "https://coronavirus-monitor.ru/coronavirus-v-kaliningradskoj-oblasti/");
-        map.put("Тамбовская область" , "https://coronavirus-monitor.ru/coronavirus-v-tambovskoj-oblasti/");
+        map.put("Тамбовская область", "https://coronavirus-monitor.ru/coronavirus-v-tambovskoj-oblasti/");
         map.put("Новгородская область", "https://coronavirus-monitor.ru/coronavirus-v-novgorodskoj-oblasti/");
         map.put("Липецкая область", "https://coronavirus-monitor.ru/coronavirus-v-lipeckoj-oblasti/");
         map.put("Смоленская область", "https://coronavirus-monitor.ru/coronavirus-v-smolenskoj-oblasti/");
         map.put("Рязанская область", "https://coronavirus-monitor.ru/coronavirus-v-ryazanskoj-oblasti/");
-        map.put("Республика Чувашия","https://coronavirus-monitor.ru/coronavirus-v-chuvashskoj-respublike/");
+        map.put("Республика Чувашия", "https://coronavirus-monitor.ru/coronavirus-v-chuvashskoj-respublike/");
         map.put("Кабардино-Балкарская Республика", "https://coronavirus-monitor.ru/coronavirus-v-kabardino-balkarskoj-respublike/");
         map.put("Сахалинская область", "https://coronavirus-monitor.ru/coronavirus-v-sakhalinskoj-oblasti/");
         map.put("Амурская область", "https://coronavirus-monitor.ru/coronavirus-v-amurskoj-oblasti/");
@@ -105,11 +104,10 @@ public class Parser {
 
     private Document getPage(String district) throws IOException {
         String url = this.map.get(district);
-        Document page = Jsoup.parse(new URL(url), 5000);
-        return page;
+        return Jsoup.parse(new URL(url), 5000);
     }
 
-    public void info(String district) {
+    public String info(String district) {
         Document page = null;
         try {
             page = getPage(district);
@@ -124,9 +122,10 @@ public class Parser {
 
         StringBuilder message = new StringBuilder();
         String s = inf.text();
-        message.append( nameCity.text() + "\n" + infectionValue.text() + "\n" + healthValue.text() +
-                "\n" + deathValue.text() + "\n");
+        message.append(nameCity.text() + ":" + "\n" + "\n" + infectionValue.text() + "\n" + healthValue.text() +
+                "\n" + deathValue.text() + "\n" + "\n" + "Краткая сводка:" + "\n" + s );
         System.out.println(message);
+        return message.toString();
     }
 
     public String[] splitter(String str) {
@@ -135,12 +134,16 @@ public class Parser {
         for (String s : list) {
             System.out.println(s);
         }
-        return null;
+        return list;
     }
 
     @Override
     public String toString() {
-        return "" + map.keySet();
+        Set<String> s = this.map.keySet();
+        StringBuilder sbr = new StringBuilder(s.toString());
+        sbr.delete(0, 1);
+        sbr.setLength(sbr.length() - 1);
+        return sbr.toString();
     }
 
 }
