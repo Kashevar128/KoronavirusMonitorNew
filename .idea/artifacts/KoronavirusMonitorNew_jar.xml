@@ -1,0 +1,11 @@
+<component name="ArtifactManager">
+  <artifact name="KoronavirusMonitorNew:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/KoronavirusMonitorNew_jar</output-path>
+    <root id="root">
+      <element id="archive" name="KoronavirusMonitorNew.jar">
+        <element id="module-output" name="KoronavirusMonitorNew" />
+      </element>
+      <element id="library" level="project" name="Maven: org.jsoup:jsoup:1.13.1" />
+    </root>
+  </artifact>
+</component>

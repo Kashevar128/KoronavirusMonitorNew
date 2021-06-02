@@ -8,8 +8,9 @@ public class Gui extends JFrame {
     private final String[] fullStrList;
     private final DefaultListModel<String> defaultListModel;
     private final JList<String> mainList;
-    StringBuilder message = new StringBuilder();
-    JTextField search;
+    private HashMap<Integer, ArrayList<String>> countMemory;
+    private final StringBuilder message = new StringBuilder();
+    private final JTextField search;
 
     public Gui() {
         super("Монитор эпидемиологической обстановки в регионах России");
@@ -64,14 +65,22 @@ public class Gui extends JFrame {
     }
 
     public void UpdateSearch(KeyEvent event) {
-        HashMap<Integer, ArrayList<String>> countMemory = new HashMap<>();
-        if (event.getKeyChar() != '\b') {
+        countMemory = new HashMap<>();
+        if ((event.getKeyChar() != '\b' && event.getKeyChar() >= 1040 && event.getKeyChar() <= 1103) || event.getKeyChar() == 45) {
             message.append(event.getKeyChar());
             System.out.println(message);
         }
 
+        int c = event.getKeyChar();
+        System.out.println(c);
+
         if (event.getKeyCode() == KeyEvent.VK_BACK_SPACE) {
-            message.deleteCharAt(message.length() - 1);
+            try {
+                message.setLength(0);
+                search.setText("");
+            } catch (StringIndexOutOfBoundsException e) {
+                System.out.println("Все ок, работай дальше");
+            }
         }
 
         for (String str : fullStrList) {
@@ -84,6 +93,8 @@ public class Gui extends JFrame {
                         count++;
                     } else break;
                 }
+
+
             } else {
                 for (int i = 0; i < str.length(); i++) {
                     String char1 = String.valueOf(message.charAt(i));
@@ -133,5 +144,6 @@ public class Gui extends JFrame {
             dlm.addElement(str);
         }
     }
+
 
 }
