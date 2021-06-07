@@ -84,16 +84,20 @@ public class Gui extends JFrame {
         }
 
         for (String str : fullStrList) {
-            int count;
+            int count = 0;
             String messageStr = message.toString().toLowerCase();
             str = str.toLowerCase();
             int firstIndex = str.indexOf(messageStr);
-            int lastIndex = str.lastIndexOf(messageStr);
-            count = lastIndex - firstIndex;
-            if (lastIndex == firstIndex && firstIndex != -1) {
-                count++;
+            if (firstIndex != -1) {
+                for (int i = 0; i < messageStr.length(); i++) {
+                    if (messageStr.charAt(i) == str.charAt(firstIndex + i)) {
+                        count++;
+                    } else break;
+                }
             }
-            addMap(countMemory, count, str);
+            for (String s : fullStrList) {
+                if (s.equalsIgnoreCase(str))addMap(countMemory, count, s);
+            }
         }
 
         int max = 0;
